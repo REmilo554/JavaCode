@@ -22,10 +22,10 @@ public class ArrayFilter {
         for (String name : filteredNames) {
             System.out.println(name);
         }
-        Integer[] arrayBeforeFiltering = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
-        Integer[] arrayAfterFiltering = filter(arrayBeforeFiltering, filter);
-        for (int i = 0; i < arrayAfterFiltering.length; i++) {
-            System.out.println(arrayAfterFiltering[i]);
+        Integer[] arrayAfterFiltering = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
+        Integer[] arrayBeforeFiltering = filter(arrayAfterFiltering, filter);
+        for (int i = 0; i < arrayBeforeFiltering.length; i++) {
+            System.out.println(arrayBeforeFiltering[i]);
         }
     }
 }
