@@ -30,15 +30,9 @@ public class ConcurrentBank {
                     startTransfer(from, to, amount);
                 }
             }
-        } else if (from.getUUID().compareTo(to.getUUID()) > 0) {
+        } else {
             synchronized (to) {
                 synchronized (from) {
-                    startTransfer(from, to, amount);
-                }
-            }
-        } else {
-            synchronized (from) {
-                synchronized (to) {
                     startTransfer(from, to, amount);
                 }
             }
@@ -76,12 +70,18 @@ public class ConcurrentBank {
 
         Thread t1 = new Thread(() -> bank.transfer(account, account1, new BigDecimal(1500)));
         Thread t2 = new Thread(() -> bank.transfer(account, account1, new BigDecimal(2000)));
+        Thread t3 = new Thread(() -> bank.transfer(account1, account, new BigDecimal(3000)));
+        Thread t4 = new Thread(() -> bank.transfer(account1, account, new BigDecimal(4000)));
         t1.start();
         t2.start();
+        t3.start();
+        t4.start();
 
         try {
             t1.join();
             t2.join();
+            t3.join();
+            t4.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
