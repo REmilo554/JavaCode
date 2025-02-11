@@ -1,6 +1,8 @@
 package com.example.javacode.ComplexTaskExecutor;
 
-public class ComplexTask implements Runnable {
+import java.util.concurrent.Callable;
+
+public class ComplexTask implements Callable<Integer> {
     private final int taskId;
 
     public int getTaskId() {
@@ -12,14 +14,16 @@ public class ComplexTask implements Runnable {
     }
 
     @Override
-    public void run() {
+    public Integer call() {
         try {
             System.out.println("Task:" + getTaskId() + " in " + Thread.currentThread().getName() + " started");
             Thread.sleep(100);
             execute();
+            return getTaskId();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+        return 0;
     }
 
     public void execute() {
@@ -30,5 +34,4 @@ public class ComplexTask implements Runnable {
             throw new RuntimeException(e);
         }
     }
-
 }

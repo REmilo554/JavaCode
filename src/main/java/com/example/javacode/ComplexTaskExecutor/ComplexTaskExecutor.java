@@ -1,44 +1,57 @@
 package com.example.javacode.ComplexTaskExecutor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ComplexTaskExecutor {
     private final int numOfThreads;
-
 
     public ComplexTaskExecutor(int numOfThreads) {
         this.numOfThreads = numOfThreads;
     }
 
-
     public void executeTasks(int numberOfTasks) {
         ExecutorService executorService = Executors.newFixedThreadPool(numOfThreads);
-        CyclicBarrier cyclicBarrier = new CyclicBarrier(numOfThreads + 1, new Runnable() {
-            public void run() {
-                System.out.println("Barrier is done");
-            }
+        AtomicInteger resultSum = new AtomicInteger(0);
+        CyclicBarrier barrier = new CyclicBarrier(numberOfTasks, () -> {
+            System.out.println("All tasks completed,result: " + resultSum.get());
         });
+
+        List<Future<?>> futures = new ArrayList<>();
         for (int i = 0; i < numberOfTasks; i++) {
-            final int finalI = i;
-            executorService.execute(() -> {
-                ComplexTask complexTask = new ComplexTask(finalI);
-                complexTask.run();
+            final int taskId = i;
+            Runnable task = () -> {
                 try {
-                    cyclicBarrier.await();
-                } catch (BrokenBarrierException | InterruptedException e) {
-                    throw new RuntimeException(e);
+                    ComplexTask complexTask = new ComplexTask(taskId);
+                    int taskResult = complexTask.call();
+                    resultSum.addAndGet(taskResult);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        barrier.await();
+                    } catch (InterruptedException | BrokenBarrierException e) {
+                        e.printStackTrace();
+                    }
                 }
-            });
+            };
+            Future<?> future = executorService.submit(task);
+            futures.add(future);
         }
-        try {
-            cyclicBarrier.await();
-        } catch (BrokenBarrierException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+
         executorService.shutdown();
+        try {
+            executorService.awaitTermination(1, TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            System.err.println("Ожидание завершения прервано: " + e.getMessage());
+        }
     }
 
 
