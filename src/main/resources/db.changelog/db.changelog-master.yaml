@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db.changelog/0.0.1/createUsersTable.sql
+  - include:
+      file: db.changelog/0.0.1/createOrdersTable.sql
+  - include:
+      file: db.changelog/0.0.1/createProductsTable.sql
+  - include:
+      file: db.changelog/0.0.1/createOrderProductTable.sql
