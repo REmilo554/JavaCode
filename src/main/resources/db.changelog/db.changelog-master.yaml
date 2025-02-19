@@ -1,9 +1,19 @@
 databaseChangeLog:
   - include:
-      file: db.changelog/0.0.1/createUsersTable.sql
+      file: db.changelog/0.0.3/createUsersTable2.sql
   - include:
-      file: db.changelog/0.0.1/createOrdersTable.sql
+      file: db.changelog/0.0.3/createProductsTable2.sql
   - include:
-      file: db.changelog/0.0.1/createProductsTable.sql
+      file: db.changelog/0.0.3/createOrdersTable3.sql
   - include:
-      file: db.changelog/0.0.1/createOrderProductTable.sql
+      file: db.changelog/0.0.3/createOrderProductTable2.sql
+  - include:
+      file: db.changelog/0.0.3/changeFKInOrdersTable.sql
+  - include:
+      file: db.changelog/0.0.2/fillingUsersTable.sql
+  - include:
+      file: db.changelog/0.0.2/fillingOrdersTable.sql
+  - include:
+      file: db.changelog/0.0.2/fillingProductsTable.sql
+  - include:
+      file: db.changelog/0.0.2/fillingOrderProductTable.sql

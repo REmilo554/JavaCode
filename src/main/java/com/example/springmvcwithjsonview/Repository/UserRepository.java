@@ -6,16 +6,15 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-import java.util.UUID;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, UUID> {
-
-//    @Query("select '*' from UserEntity u join Order o on u.userId=o.user where o.user=?1")
-   Optional<UserEntity> findUserEntityByUserId(UUID userId);
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     @Modifying
-    @Query("update UserEntity u set u.fullName=:fullName,u.email=:email where u.userId=:userId")
-    UserEntity updateUser(UUID userId,String fullName,String email);
+    @Query("update UserEntity u set u.fullName=?2,u.email=?3 where u.userId=?1")
+    Integer updateUser(Long userId, String fullName, String email);
+
+    @Modifying
+    @Query("delete UserEntity u where u.userId=?1")
+    int deleteUserEntityByUserId(Long userId);
 }

@@ -1,5 +1,7 @@
 package com.example.springmvcwithjsonview.Entity;
 
+import com.example.springmvcwithjsonview.View.UserDetails;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -15,8 +17,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.util.UUID;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,9 +26,10 @@ import java.util.UUID;
 public class OrderProduct {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_product_id")
-    UUID id;
+    @JsonView(UserDetails.class)
+    Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", nullable = false)
@@ -36,8 +37,10 @@ public class OrderProduct {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", nullable = false)
+    @JsonView(UserDetails.class)
     Product product;
 
     @Column(name = "quantity", nullable = false)
+    @JsonView(UserDetails.class)
     Integer quantity;
 }

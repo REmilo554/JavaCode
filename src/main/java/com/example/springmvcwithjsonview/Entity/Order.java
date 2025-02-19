@@ -1,11 +1,13 @@
 package com.example.springmvcwithjsonview.Entity;
 
-import com.example.springmvcwithjsonview.Entity.Enums.OrderStatus;
+import com.example.springmvcwithjsonview.View.UserDetails;
+import com.fasterxml.jackson.annotation.JsonView;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -20,7 +22,6 @@ import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 
 @Data
@@ -33,16 +34,20 @@ import java.util.UUID;
 public class Order {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
-    UUID id;
+    @JsonView(UserDetails.class)
+    Long id;
     @Column(name = "order_price", nullable = false)
+    @JsonView(UserDetails.class)
     BigDecimal orderPrice;
     @Column(name = "status", nullable = false)
-    OrderStatus status;
+    @JsonView(UserDetails.class)
+    String status;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = true)
     UserEntity user;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonView(UserDetails.class)
     List<OrderProduct> orderProducts;
 }
