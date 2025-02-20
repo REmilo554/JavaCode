@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db.changelog/0.0.1/createAuthorTable.sql
+  - include:
+      file: db.changelog/0.0.1/createBookTable.sql
+  - include:
+      file: db.changelog/0.0.2/fillingAuthorsTable.sql
+  - include:
+      file: db.changelog/0.0.2/fillingBooksTable.sql
