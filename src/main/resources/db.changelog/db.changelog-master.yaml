@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - include:
+      file: db.changelog/0.0.1/createProductsTable.sql
+  - include:
+      file: db.changelog/0.0.1/createCustomersTable.sql
+  - include:
+      file: db.changelog/0.0.1/createOrdersTable.sql
+  - include:
+      file: db.changelog/0.0.1/createOrderProductsTable.sql
+  - include:
+      file: db.changelog/0.0.2/fillingProductsTable.sql
+  - include:
+      file: db.changelog/0.0.2/fillingCustomersTable.sql
+  - include:
+      file: db.changelog/0.0.2/fillingOrdersTable.sql
+  - include:
+      file: db.changelog/0.0.2/fillingOrderProductsTable.sql
