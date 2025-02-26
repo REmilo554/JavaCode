@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db.changelog/0.0.1/createDepartmentTable.sql
+  - include:
+      file: db.changelog/0.0.1/createEmployeeTable.sql
+  - include:
+      file: db.changelog/0.0.1/fillingDepartmentTable.sql
+  - include:
+      file: db.changelog/0.0.1/fillingEmployeeTable.sql
