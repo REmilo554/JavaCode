@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: db.changelog/0.0.1/createTableUsers.sql
+  - include:
+      file: db.changelog/0.0.2/addedColumnInUsersTable.sql

@@ -1,0 +1,2 @@
+keytool -genkeypair -alias tomcat -keyalg RSA -keysize 2048 -validity 3650 -keystore "C:\certs\keystore.p12" -storepass 123456 -keypass 123456 -dname "CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown" -storetype PKCS12
+для создания файла сертификата
