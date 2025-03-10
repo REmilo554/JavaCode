@@ -27,6 +27,7 @@ public class NotificationService {
             OrderDTO orderDTO = OrderDTO.builder()
                     .orderId(order.getOrderId())
                     .orderStatus("COMPLETED")
+                    .productName(order.getProductName())
                     .paymentStatus(order.getPaymentStatus())
                     .shippingStatus("DELIVERED")
                     .build();
